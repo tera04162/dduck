@@ -1,0 +1,177 @@
+/*!******************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles.css ***!
+  \******************************************************************/
+ :root {
+    --background-color: lightblue;
+    --male-color: blue;
+    --female-color: red;
+    --store-name-color: #000;
+    --font-size-base: 16px;
+    --font-weight-bold: 800;
+    --search-box-border-color: #b40057; /* 지도 테두리 색상과 동일하게 설정 */
+    --search-box-background-color: #b40057; /* 버튼과 동일한 배경색으로 설정 */
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+
+
+.male { 
+    color: var(--male-color) !important;
+}
+
+.female { 
+    color: var(--female-color) !important;
+}
+
+.iw_inner h4 {
+    font-size: var(--font-size-base); 
+    font-weight: var(--font-weight-bold); 
+    color: var(--store-name-color); 
+}
+
+
+.row-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 315px; /* 고정 높이 */
+}
+
+.map-area, .text-panel {
+    height: 100%; /* 부모 요소의 높이에 맞춤 */
+}
+
+
+#store-search {
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+    width: 250px;
+    border-radius: 5px;
+    border: 7px solid var(--search-box-border-color); /* 검색창 테두리 색상 */
+    background-color: white; /* 검색창 내부 배경 색상 */
+    color: #000; /* 텍스트 색상 */
+    position: relative; /* 자동완성 리스트를 올바르게 배치하기 위해 position을 relative로 설정 */
+}
+
+#search-button {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 15px;
+    white-space: nowrap;
+    padding: 15px 30px;
+    border-radius: 5px;
+    border: 7px solid var(--search-box-border-color); /* 버튼 테두리 색상 */
+    background-color: var(--search-box-background-color); /* 버튼 배경 색상 */
+    color: white; /* 버튼 텍스트 색상 */
+    cursor: pointer;
+}
+
+/* 자동완성 리스트 스타일 */
+#autocomplete-list {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-top: none;
+    z-index: 99;
+    top: 100%; /* 검색창 바로 아래에 위치 */
+    left: 0;
+    right: 0;
+    background-color: #fff;
+}
+
+
+#autocomplete-list div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#autocomplete-list div:hover {
+    background-color: #e9e9e9;
+}
+
+/* 지도 및 텍스트 패널 배치 */
+.map-area {
+    width: 100%; /* 초기 너비 */
+    height: 315px;
+    border: 7px solid #b40057;
+    transition: width 0.5s ease;
+}
+
+.map-shrink {
+    width: 33.33%; /* 마커 클릭 후 지도 너비를 1/3로 축소 */
+}
+
+.text-panel {
+    flex-basis: 33.33%; /* 초기에는 1/3 크기 */
+    height: 315px; /* 높이를 자동으로 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; /* 버튼들을 균등하게 배치 */
+    align-items: center; /* 텍스트를 가운데로 정렬 */
+    padding: 5px; /* 내부 여백 추가 */
+    background-color: var(--panel-background-color); /* 반투명 배경색 */
+    border: 7px solid #b40057; /* 테두리 색상 */
+    transition: flex-basis 0.5s ease;
+    margin-left: 5px; /* 지도와 패널 사이에 틈 추가 */
+}
+
+.text-panel button {
+    width: 90%; /* 버튼 너비를 10%로 설정 */
+    text-align: center; /* 버튼 텍스트를 가운데로 정렬 */
+    margin-bottom: 10px; /* 버튼 간격 추가 */
+    padding: 5px; /* 버튼 내부 여백 추가 */
+    flex-grow: 1; /* 버튼들이 세로로 균등하게 차지 */
+}
+
+.text-panel button:first-child {
+    margin-top: 10px; /* 첫 번째 버튼의 상단 여백 추가 */
+}
+
+.text-panel button:last-child {
+    margin-bottom: 0px; /* 마지막 버튼의 하단 여백 추가 */
+}
+
+
+.expanded .text-panel {
+    flex-basis: 66.67% !important; /* 마커 클릭후 텍스트 패널이 2/3로 확장됨 */
+}
+
+/* 전체 컨테이너 */
+.row-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.expanded .map-area {
+    width: 33.33% !important; /* 마커클릭후 지도가 1/3로 축소됨 */
+}
+
+.button-grid {
+    display: flex;
+    flex-direction: column; /* 버튼들을 세로로 배치 */
+    width: 10%; /* 버튼 너비를 10%로 설정 */
+    margin-right: 10px; /* 유튜브 창과의 간격 추가 */
+}
+
+.button-grid button {
+    flex-grow: 1; /* 버튼들이 세로로 균등하게 차지 */
+    margin-bottom: 5px; /* 버튼 간격 추가 */
+}
+
+.video-container {
+    width: 90%; /* 유튜브 창 너비를 90%로 설정 */
+    text-align: center;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
