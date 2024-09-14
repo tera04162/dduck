@@ -58,15 +58,17 @@ body {
     color: var(--store-name-color);
 }
 
+/* 기존 구조 */
 .row-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 315px;
+    height: 500px;
 }
 
+
 .map-area, .text-panel {
-    height: 400px; /* 지도와 텍스트 패널의 높이를 일치시킴 */
+    height: 500px; /* 지도와 텍스트 패널의 높이를 일치시킴 */
 }
 
 #store-search {
@@ -121,7 +123,7 @@ body {
 
 .map-area {
     width: 100%;
-    height: 400px;
+    height: 500px;
     border: 7px solid #b40057;
     transition: width 0.5s ease;
 }
@@ -129,7 +131,7 @@ body {
 /* 텍스트창 높이와 지도 높이 맞춤 */
 .text-panel {
     
-    height: 400px; /* 지도와 같은 높이로 맞춤 */
+    height: 500px; /* 지도와 같은 높이로 맞춤 */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -162,7 +164,7 @@ body {
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    height: 400px;
+    height: 500px;
     gap: 10px;
 }
 
@@ -234,14 +236,17 @@ body {
         padding: 5px;
     }
 
-    .row-container {
-        flex-direction: column;
-        height: auto;
-    }
+/* 기존 구조 */
+.row-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 500px;
+}
 
     .map-area, .text-panel {
         width: 100%;
-        height: 300px;
+        height: 500px;
     }
 
     .buttons-container {
@@ -266,10 +271,12 @@ body {
     .video-container {
         width: 100%;
     }
+/* 유튜브 비디오 길이 조정 */
+.youtube {
+    width: 100%;
+    height: 700px; /* 유튜브 비디오의 세로 길이를 확대 */
+}
 
-    .youtube {
-        height: 500px;
-    }
 
     .video-buttons-wrapper {
         flex-direction: column;
@@ -330,4 +337,9 @@ body {
 
 }
 
+/* 인스타그램 임베드 길이 조정 */
+#instagram-post iframe {
+    width: 100%;
+    height: 500px; /* 인스타그램 비율에 맞게 세로 길이를 증가 */
+}
 
