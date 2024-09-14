@@ -126,9 +126,10 @@ body {
     transition: width 0.5s ease;
 }
 
+/* 텍스트창 높이와 지도 높이 맞춤 */
 .text-panel {
     flex-basis: 33.33%;
-    height: 400px;
+    height: 400px; /* 지도와 같은 높이로 맞춤 */
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -185,7 +186,7 @@ body {
 
 .youtube {
     width: 100%; /* 부모 요소에 맞춤 */
-    height: 400px; /* 고정된 높이 설정 */
+    height: 600px; /* 유튜브 창 1.5배 확장 */
 }
 
 .buttons-container {
@@ -282,30 +283,45 @@ body {
     }
 }
 
-/* 추가된 탭 기능 관련 CSS */
+/* 탭 컨테이너와 마진 제거 */
 .tab-container {
     display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    align-items: center; /* 상단에 붙도록 설정 */
-    gap: 5px; /* 탭 간격 설정 */
-    padding: 0; /* 빈공간 제거 */
-    margin-top: 0; /* 텍스트 패널 상단과 붙도록 설정 */
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+    margin: 0; /* 상단과 좌측 마진 완전 제거 */
 }
 
+
+/* 탭 버튼 스타일 수정 */
 .tab-button {
-    padding: 5px 10px; /* 탭 크기 설정 */
-    font-size: 14px;
+    padding: 10px 15px;
+    font-size: 16px;
     line-height: 1.5;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    white-space: nowrap; /* 글자가 한 줄에 나오도록 설정 */
+    white-space: nowrap; 
+    text-align: center;
 }
+
 
 .tab-button.active {
     background-color: #b40057;
     color: white;
 }
+
+.tab-content {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    width: 100%; /* 탭 콘텐츠가 텍스트창을 벗어나지 않도록 */
+    height: 100%; /* 창 크기 조정 */
+    overflow: auto;
+}
+
 
