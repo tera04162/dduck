@@ -73,7 +73,7 @@
     display: flex; /* 자식 요소를 가로로 배치 */
     justify-content: space-between; /* 자식 요소들을 양 끝에 배치 */
     width: 100%; /* 전체 너비 */
-    height: 400px; /* 고정된 높이 */
+    height: 315px; /* 고정된 높이 */
 }
 
 .map-area, .text-panel {
@@ -213,7 +213,7 @@ height: 400px;
  
         .youtube {
             width: 100%;
-            height: 700px;
+            height: 500px;
         }
 
       .buttons-container {
@@ -221,7 +221,7 @@ height: 400px;
             flex-direction: column;
             width: 10%;
             margin-right: 10px;
-            height: 700px;
+            height: 400px;
             justify-content: space-between;
         }
 
@@ -269,7 +269,7 @@ height: 400px;
 
             .map-area, .text-panel {
                 width: 100%;
-                height: 400px;
+                height: 300px;
             }
 
             .buttons-container {
@@ -282,7 +282,7 @@ height: 400px;
 
             .buttons-container button {
                 width: calc(25% - 6px);
-                height: 700px;
+                height: 50px;
                 margin-bottom: 0;
                 margin-right: 8px;
             }
@@ -296,7 +296,7 @@ height: 400px;
             }
 
             .youtube {
-                height: 700px;
+                height: 500px;
             }
 
             .video-buttons-wrapper {
