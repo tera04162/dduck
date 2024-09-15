@@ -14,6 +14,19 @@
     --panel-border-color: #b40057;
 }
 
+* {
+    box-sizing: border-box; /* 박스 크기가 컨테이너를 넘지 않도록 */
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 좌우로 넘치는 내용 숨김 */
+}
+
 .container {
     width: 100%;
     max-width: 1600px;
@@ -36,39 +49,6 @@
     width: 100%;
     margin-bottom: 10px;
     flex-wrap: nowrap;
-}
-
-body {
-    background-color: var(--background-color);
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
-
-.male { 
-    color: var(--male-color) !important;
-}
-
-.female { 
-    color: var(--female-color) !important;
-}
-
-.iw_inner h4 {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-bold);
-    color: var(--store-name-color);
-}
-
-/* 기존 구조 */
-.row-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 500px;
-}
-
-
-.map-area, .text-panel {
-    height: 500px; /* 지도와 텍스트 패널의 높이를 일치시킴 */
 }
 
 #store-search {
@@ -99,73 +79,46 @@ body {
     cursor: pointer;
 }
 
-#autocomplete-list {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-top: none;
-    z-index: 99;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background-color: #fff;
-}
-
-#autocomplete-list div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d4;
-}
-
-#autocomplete-list div:hover {
-    background-color: #e9e9e9;
+.iw_inner h4 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--store-name-color);
 }
 
 .map-area {
+    min-width: 300px;
     width: 100%;
     height: 500px;
+    min-height: 400px;
     border: 7px solid #b40057;
     transition: width 0.5s ease;
 }
 
-/* 텍스트창 높이와 지도 높이 맞춤 */
 .text-panel {
-    
-    height: 500px; /* 지도와 같은 높이로 맞춤 */
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: left;
-    padding: 0px;
+    padding: 10px;
     background-color: var(--panel-background-color);
     border: 7px solid #b40057;
-    transition: flex-basis 0.5s ease;
-    margin-left: 0px;
+    margin-left: 0;
+    margin-bottom: 0px;
 }
 
 .text-panel button {
     width: 90%;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
     padding: 5px;
-    flex-grow: 0;
-}
-
-.text-panel button:first-child {
-    margin-top: 0px;
-}
-
-.text-panel button:last-child {
-    margin-bottom: 0px;
 }
 
 .row-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 100%;
-    height: 500px;
     gap: 10px;
+    box-sizing: border-box;
 }
 
 .button-grid {
@@ -181,42 +134,35 @@ body {
 }
 
 .video-container {
-    width: 90%;
+    width: 100%;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .youtube {
-    width: 100%; /* 부모 요소에 맞춤 */
-    height: 600px; /* 유튜브 창 1.5배 확장 */
+    width: 100%;
+    height: 700px; /* 기본적으로 PC에서의 유튜브 높이 */
 }
 
 .buttons-container {
     display: flex;
-    flex-direction: column;
-    width: 10%;
-    margin-right: 10px;
-    height: 400px;
+    flex-direction: row;
     justify-content: space-between;
+    width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+    gap: 10px;
 }
 
 .buttons-container button {
-    width: 100%;
-    padding: 0px;
-    font-size: 16px;
+    width: calc(25% - 6px);
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
     border: 5px solid transparent;
     border-radius: 4px;
-    cursor: pointer;
-    box-sizing: border-box;
-    height: calc(100% / 4 - 10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0px;
-}
-
-.buttons-container button:last-child {
-    margin-bottom: 0;
+    display: inline-block;
+    text-align: center;
 }
 
 .red { background-color: #f44336; color: white; border-color: #f44336; }
@@ -226,62 +172,31 @@ body {
 
 .video-buttons-wrapper {
     display: flex;
-    border: 7px solid transparent;
+    flex-direction: column;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 0px;
+    width: 100%;
+    border: 7px solid #b40057;
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 5px;
-    }
-
-/* 기존 구조 */
-.row-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 500px;
-}
-
-    .map-area, .text-panel {
-        width: 100%;
-        height: 500px;
-    }
-
-    .buttons-container {
-        width: 100%;
-        flex-direction: row;
-        height: auto;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .buttons-container button {
-        width: calc(25% - 6px);
-        height: 50px;
-        margin-bottom: 0;
-        margin-right: 8px;
-    }
-
-    .buttons-container button:last-child {
-        margin-right: 0;
-    }
-
-    .video-container {
-        width: 100%;
-    }
-/* 유튜브 비디오 길이 조정 */
-.youtube {
-    width: 100%;
-    height: 700px; /* 유튜브 비디오의 세로 길이를 확대 */
-}
-
-
-    .video-buttons-wrapper {
+    .row-container {
         flex-direction: column;
     }
 
+    .map-area, .text-panel {
+        width: 100%;
+        height: auto;
+    }
+
+    .youtube {
+        height: 300px; /* 모바일에서 유튜브 높이를 300px으로 조정 */
+    }
+
+    .text-panel {
+        margin-bottom: 0px;
+    }
+}
 
 @media (max-width: 480px) {
     .buttons-container button {
@@ -290,32 +205,28 @@ body {
     }
 }
 
-/* 탭 컨테이너와 마진 제거 */
 .tab-container {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 5px;
     padding: 0;
-    margin: 0; /* 상단과 좌측 마진 완전 제거 */
+    margin: 0;
 }
 
-
-/* 탭 버튼 스타일 수정 */
 .tab-button {
     padding: 0;
     font-size: 16px;
     line-height: 1.5;
- height: 40px; /* 고정된 높이 설정 */
+    height: 40px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     display: inline-block;
-    white-space: nowrap; 
+    white-space: nowrap;
     text-align: center;
 }
-
 
 .tab-button.active {
     background-color: #b40057;
@@ -323,23 +234,21 @@ body {
 }
 
 .tab-content {
-    padding: 10px; /* 내부 여백 추가 */
-    text-align: left; /* 텍스트를 왼쪽 정렬 */
-    line-height: 2; /* 줄 간격 설정 */
+    padding: 10px;
+    text-align: left;
+    line-height: 2;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 수직 중앙 정렬 */
-    align-items: flex-start; /* 텍스트를 왼쪽 정렬 */
+    justify-content: center;
+    align-items: flex-start;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
     height: 100%;
-
 }
 
-/* 인스타그램 임베드 길이 조정 */
 #instagram-post iframe {
     width: 100%;
-    height: 500px; /* 인스타그램 비율에 맞게 세로 길이를 증가 */
+    height: 500px;
 }
 
