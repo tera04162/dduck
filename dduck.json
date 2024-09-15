@@ -44,5 +44,29 @@
       "award": "https://www.youtube.com/embed/mSL_sFSduQs",
       "newsong": "https://www.youtube.com/embed/E9MOe0yrIHc"
     }
+  },
+ {
+    "name": "회류떡방",
+    "address": "경남 창원시 성산구 창이대로460번길 20 1층",
+    "latitude": 35.2377342557566, 
+    "longitude": 128.683810086622,
+    "hours": "11:00~22:00",
+    "phone": "0507-1337-5855",
+    "menu": ["로제 떡볶이"],
+    "price": "23,000원",
+    "broadcast": "1 ",
+    "rating": 1,
+    "reviews": 2371,
+    "popularInsta1": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/B-FDe2Flsdm\"></blockquote>",
+    "popularInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CqUXULRymnh\"></blockquote>",
+    "latestInsta1": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CPU5PukDq2H\"></blockquote>",
+    "latestInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CUmT6o1J_j6\"></blockquote>",
+    "youtubeVideos": {
+      "childhood": "https://www.youtube.com/embed/GNRz2GeeEmk",
+      "predebut": "https://www.youtube.com/embed/BoxHUTL9TD4",
+      "award": "https://www.youtube.com/embed/9yWjJ1TP_Vs",
+      "newsong": "https://www.youtube.com/embed/DeWhiwLcGFs"
+    }
   }
+
 ]
