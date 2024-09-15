@@ -14,7 +14,13 @@
     "popularInsta1": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/qfuifkE2cL\"></blockquote>",
     "popularInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/B_KI94optok\"></blockquote>",
     "latestInsta1": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/B-ofEORFeDP\"></blockquote>",
-    "latestInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CCTRU3wlIKq\"></blockquote>"
+    "latestInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CCTRU3wlIKq\"></blockquote>",
+    "youtubeVideos": {
+      "childhood": "https://www.youtube.com/embed/NmENkznhgUA",
+      "predebut": "https://www.youtube.com/embed/trZefhGu0tE",
+      "award": "https://www.youtube.com/embed/wnaaDzQZo1o",
+      "newsong": "https://www.youtube.com/embed/FHKXwraUZ2M"
+    }
   },
   {
     "name": "신토불이 떡볶이 본점",
@@ -31,6 +37,12 @@
     "popularInsta1": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CUFSKfxvsus\"></blockquote>",
     "popularInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CxUUEHtywbr\"></blockquote>",
     "latestInsta1": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CceB8h4PUO6\"></blockquote>",
-    "latestInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CRtpefGFXxv\"></blockquote>"
+    "latestInsta2": "<blockquote class=\"instagram-media\" data-instgrm-captioned data-instgrm-permalink=\"https://www.instagram.com/p/CRtpefGFXxv\"></blockquote>",
+    "youtubeVideos": {
+      "childhood": "https://www.youtube.com/embed/t0a4rHluZ5I",
+      "predebut": "https://www.youtube.com/embed/P5RLGu6FeTs",
+      "award": "https://www.youtube.com/embed/mSL_sFSduQs",
+      "newsong": "https://www.youtube.com/embed/kbvNfjFcQIA"
+    }
   }
 ]
