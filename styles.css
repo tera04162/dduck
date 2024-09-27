@@ -2,7 +2,7 @@
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles.css ***!
   \******************************************************************/
 :root {
-    --background-color: lightblue;
+    --background-color: white;
     --male-color: blue;
     --female-color: red;
     --store-name-color: #d00000;
@@ -62,7 +62,7 @@ body {
     border-radius: 5px;
     border: 7px solid var(--search-box-border-color);
     background-color: white;
-    color: #d00000;
+    color: #000000;
     position: relative;
 }
 
