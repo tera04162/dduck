@@ -139,6 +139,48 @@ function searchByRegion(query) {
   }
 }
 
+// 전역 변수 선언 부분 끝
+
+// 여기에 toggleDetailView 함수를 추가합니다
+function toggleDetailView() {
+  var mapArea = document.getElementById('map');
+  var textPanel = document.getElementById('text-panel');
+  var rowContainer = document.querySelector('.row-container');
+  if (!mapArea || !textPanel || !rowContainer) {
+    console.error('필요한 DOM 요소를 찾을 수 없습니다.');
+    return;
+  }
+  rowContainer.classList.toggle('expanded');
+  if (rowContainer.classList.contains('expanded')) {
+    if (window.innerWidth > 768) {
+      // PC 버전
+      mapArea.style.width = '66.67%';
+      textPanel.style.width = '33.33%';
+    } else {
+      // 모바일 버전
+      mapArea.style.height = '50%';
+      textPanel.style.height = '50%';
+    }
+  } else {
+    if (window.innerWidth > 768) {
+      // PC 버전
+      mapArea.style.width = '100%';
+      textPanel.style.width = '100%';
+    } else {
+      // 모바일 버전
+      mapArea.style.height = 'auto';
+      textPanel.style.height = 'auto';
+    }
+  }
+  setTimeout(function () {
+    naver.maps.Event.trigger(map, 'resize');
+    var center = map.getCenter();
+    map.setCenter(center);
+  }, 100);
+}
+
+// updateVideoAndButtons 함수와 그 이후의 기존 함수들
+
 // 유튜브 비디오 및 버튼 업데이트 함수
 function updateVideoAndButtons(store) {
   var videoFrame = document.getElementById('youtubeVideo');
@@ -320,6 +362,17 @@ function updateMarkers(stores) {
       infowindow.open(map, marker);
       updateStoreInfo(store);
     });
+
+    // 여기에 infowindow 클릭 이벤트를 추가합니다
+    naver.maps.Event.addListener(infowindow, "domready", function () {
+      var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
+      if (iwInner) {
+        iwInner.addEventListener('click', function () {
+          toggleDetailView();
+          updateStoreInfo(store);
+        });
+      }
+    });
     if (index === 0 && openInfoWindow) {
       infowindow.open(map, marker);
     }
@@ -435,6 +488,15 @@ function createInitialMarkers() {
       backgroundColor: "#eee",
       borderColor: "#b40057",
       borderWidth: 5
+    });
+    naver.maps.Event.addListener(infowindow, "domready", function () {
+      var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
+      if (iwInner) {
+        iwInner.addEventListener('click', function () {
+          toggleDetailView();
+          updateStoreInfo(store);
+        });
+      }
     });
     infoWindows.push(infowindow);
     naver.maps.Event.addListener(marker, "click", function () {
