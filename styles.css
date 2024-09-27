@@ -190,7 +190,7 @@ body {
     }
 
     .youtube {
-        height: 300px; /* 모바일에서 유튜브 높이를 300px으로 조정 */
+        height: 600px; /* 모바일에서 유튜브 높이를 600px으로 조정 */
     }
 
     .text-panel {
