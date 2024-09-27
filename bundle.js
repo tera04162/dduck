@@ -1,11 +1,3 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -16,17 +8,9 @@
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://dduck/./src/styles.css?");
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
 
-/***/ }),
-
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ \"./src/styles.css\");\n\r\n\r\n// 가게 데이터\r\nlet storeData = [];\r\n\r\n// 현재 선택된 가게 저장\r\nlet currentStore = null;\r\n\r\n// DOM 요소 선언\r\nconst searchButton = document.getElementById('search-button');\r\nconst searchInput = document.getElementById('store-search');\r\nconst videoButtonsWrapper = document.querySelector('.video-buttons-wrapper');\r\nconst videoContainer = document.getElementById('video');\r\nconst buttons = document.querySelectorAll(\".buttons-container button\");\r\n\r\n// 유튜브 비디오 및 버튼 업데이트 함수\r\nfunction updateVideoAndButtons(store) {\r\n    const videoFrame = document.getElementById('youtubeVideo');\r\n\r\n    buttons.forEach(button => {\r\n        const buttonId = button.id;\r\n        if (store.youtubeVideos && store.youtubeVideos[buttonId]) {\r\n            // 버튼 텍스트와 유튜브 링크를 JSON에서 가져옴\r\n            button.onclick = () => {\r\n                videoFrame.src = store.youtubeVideos[buttonId];  // 유튜브 영상 변경\r\n            };\r\n        } else {\r\n            console.error(`해당 가게에 대한 유튜브 영상 ID(${buttonId})가 없습니다.`);\r\n        }\r\n    });\r\n}\r\n\r\n// 탭 기능 추가\r\nconst tabs = document.querySelectorAll(\".tab-button\");\r\nconst tabContent = document.getElementById(\"tab-content\");\r\n\r\nfunction activateTab(tabId, content) {\r\n    tabs.forEach(tab => {\r\n        tab.classList.remove('active');\r\n        if (tab.id === tabId) {\r\n            tab.classList.add('active');\r\n        }\r\n    });\r\n    tabContent.innerHTML = content || '내용이 없습니다.';\r\n}\r\n\r\n// 기본으로 상세정보 탭 활성화\r\nactivateTab('detail-tab', '가게 상세 정보가 여기에 표시됩니다.');\r\n\r\n// 탭 클릭 이벤트\r\ntabs.forEach(tab => {\r\n    tab.addEventListener('click', () => {\r\n        const tabId = tab.id;\r\n        const content = tab.dataset.content || '내용이 없습니다.';\r\n        activateTab(tabId, content);\r\n    });\r\n});\r\n\r\n// 인스타그램 임베드 업데이트 함수\r\nfunction updateInstagramEmbed(instaEmbedCode) {\r\n    const tabContentContainer = document.getElementById('tab-content');\r\n    const instagramPostContainer = document.getElementById('instagram-post');\r\n    \r\n    if (tabContentContainer && instagramPostContainer) {\r\n        // 두 컨테이너의 내용을 모두 지웁니다\r\n        tabContentContainer.innerHTML = '';\r\n        instagramPostContainer.innerHTML = '';\r\n        \r\n        // 새 콘텐츠를 tab-content에 추가합니다\r\n        tabContentContainer.innerHTML = instaEmbedCode;\r\n        \r\n        // Instagram Embeds script 처리 (중복 방지)\r\n        if (window.instgrm) {\r\n            console.log('Instagram embed 처리');\r\n            setTimeout(() => {\r\n                window.instgrm.Embeds.process();\r\n            }, 500);\r\n        } else {\r\n            const script = document.createElement('script');\r\n            script.async = true;\r\n            script.defer = true;\r\n            script.src = \"https://www.instagram.com/embed.js\";\r\n            document.body.appendChild(script);\r\n        }\r\n    } else {\r\n        console.error(\"tab-content 또는 instagram-post 요소를 찾을 수 없습니다.\");\r\n    }\r\n}\r\n\r\n// 탭 클릭 핸들러 함수들\r\nfunction popular1Handler() {\r\n    console.log('인기 1 클릭');\r\n    const store = getCurrentStore();\r\n    if (store && store.popularInsta1) {\r\n        updateInstagramEmbed(store.popularInsta1);  // popularInsta1 사용\r\n    }\r\n}\r\n\r\nfunction popular2Handler() {\r\n    console.log('인기 2 클릭');\r\n    const store = getCurrentStore();\r\n    if (store && store.popularInsta2) {\r\n        updateInstagramEmbed(store.popularInsta2);  // popularInsta2 사용\r\n    }\r\n}\r\n\r\nfunction latest1Handler() {\r\n    console.log('최신 1 클릭');\r\n    const store = getCurrentStore();\r\n    if (store && store.latestInsta1) {\r\n        updateInstagramEmbed(store.latestInsta1);  // latestInsta1 사용\r\n    }\r\n}\r\n\r\nfunction latest2Handler() {\r\n    console.log('최신 2 클릭');\r\n    const store = getCurrentStore();\r\n    if (store && store.latestInsta2) {\r\n        updateInstagramEmbed(store.latestInsta2);  // latestInsta2 사용\r\n    }\r\n}\r\n\r\n// 이벤트 리스너 등록 (중복 방지를 위해 removeEventListener 후 addEventListener 사용)\r\nconst popular1Tab = document.getElementById('popular1-tab');\r\nconst popular2Tab = document.getElementById('popular2-tab');\r\nconst latest1Tab = document.getElementById('latest1-tab');\r\nconst latest2Tab = document.getElementById('latest2-tab');\r\n\r\npopular1Tab.removeEventListener('click', popular1Handler);\r\npopular1Tab.addEventListener('click', popular1Handler);\r\n\r\npopular2Tab.removeEventListener('click', popular2Handler);\r\npopular2Tab.addEventListener('click', popular2Handler);\r\n\r\nlatest1Tab.removeEventListener('click', latest1Handler);\r\nlatest1Tab.addEventListener('click', latest1Handler);\r\n\r\nlatest2Tab.removeEventListener('click', latest2Handler);\r\nlatest2Tab.addEventListener('click', latest2Handler);\r\n\r\n\r\n// 현재 선택된 가게 반환 함수\r\nfunction getCurrentStore() {\r\n    return currentStore;\r\n}\r\n\r\n// 가게 정보 업데이트 함수 (마커 클릭 및 검색 시)\r\nfunction updateStoreInfo(store) {\r\n    currentStore = store; // 현재 선택된 가게를 저장\r\n    if (!store) return; // store가 없는 경우 함수 종료\r\n    \r\n    const detailContent = `\r\n        가게명: ${store.name}<br>\r\n        주소: ${store.address}<br>\r\n        평점: ${store.rating}<br>\r\n        방송: ${store.broadcast}<br>\r\n        전화번호: ${store.phone}<br>\r\n        메뉴: ${store.menu.join(\", \")}<br>\r\n        가격: ${store.price}\r\n    `;\r\n    activateTab('detail-tab', detailContent);\r\n// 각 탭에 대한 Instagram 임베드 코드 업데이트\r\ndocument.getElementById('popular1-tab').dataset.content = store.popularInsta1 || '해당 게시물을 가져올 수 없습니다.';\r\ndocument.getElementById('popular2-tab').dataset.content = store.popularInsta2 || '해당 게시물을 가져올 수 없습니다.';\r\ndocument.getElementById('latest1-tab').dataset.content = store.latestInsta1 || '해당 게시물을 가져올 수 없습니다.';\r\ndocument.getElementById('latest2-tab').dataset.content = store.latestInsta2 || '해당 게시물을 가져올 수 없습니다.';\r\n\r\n    // 유튜브 비디오 및 버튼 업데이트\r\n    updateVideoAndButtons(store);\r\n}\r\n\r\n// 마커 및 검색에서 가게 데이터 업데이트 처리\r\nfunction handleStoreUpdate(store) {\r\n    updateStoreInfo(store); // 탭 및 유튜브 업데이트\r\n}\r\n\r\n// 지도 및 마커 설정\r\ndocument.addEventListener('DOMContentLoaded', function() {\r\n    const mapElement = document.getElementById('map');\r\n\r\n    if (!searchButton || !mapElement) {\r\n        console.error('Required DOM elements not found');\r\n        return;\r\n    }\r\n\r\n    if (window.naver && naver.maps) {\r\n        const cityhall = new naver.maps.LatLng(37.5666805, 126.9784147);\r\n        const map = new naver.maps.Map('map', {\r\n            center: cityhall,\r\n            zoom: 6.5\r\n        });\r\n\r\n        const redMarkerIcon = {\r\n            url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',\r\n            size: new naver.maps.Size(32, 32),\r\n            origin: new naver.maps.Point(0, 0),\r\n            anchor: new naver.maps.Point(16, 32)\r\n        };\r\n\r\n        const yellowMarkerIcon = {\r\n            url: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',\r\n            size: new naver.maps.Size(32, 32),\r\n            origin: new naver.maps.Point(0, 0),\r\n            anchor: new naver.maps.Point(16, 32)\r\n        };\r\n\r\n        let markers = [];\r\n        let infoWindows = [];\r\n\r\n        fetch('https://tera04162.github.io/dduck/dduck.json')\r\n            .then(response => response.json())\r\n            .then(data => {\r\n                storeData = data;\r\n\r\n                data.forEach((store, index) => {\r\n                    const position = new naver.maps.LatLng(store.latitude, store.longitude);\r\n                    const marker = new naver.maps.Marker({\r\n                        map: map,\r\n                        position: position,\r\n                        icon: redMarkerIcon\r\n                    });\r\n\r\n  markers.push(marker);\r\n\r\n                    const contentString = `\r\n                        <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500;\">\r\n                            <h3 style=\"font-size:14px; font-weight: 600;\">\r\n                                ${store.name}\r\n                            </h3>\r\n                            <p>\r\n                                주소: ${store.address}<br />\r\n                                전화번호: ${store.phone}<br />\r\n                            </p>\r\n                        </div>\r\n                    `;\r\n\r\n                    const infowindow = new naver.maps.InfoWindow({\r\n                        content: contentString,\r\n                        minWidth: 200,\r\n                        backgroundColor: \"#eee\",\r\n                        borderColor: \"#b40057\",\r\n                        borderWidth: 5,\r\n                    });\r\n\r\n                    infoWindows.push(infowindow);\r\n\r\n                    naver.maps.Event.addListener(marker, \"click\", function () {\r\n                        markers.forEach(m => m.setIcon(redMarkerIcon));  // 모든 마커를 빨간색으로 되돌림\r\n                        marker.setIcon(yellowMarkerIcon);  // 선택된 마커는 노란색으로 변경\r\n\r\n                        // 지도 팬 이동 처리\r\n                        setTimeout(() => {\r\n                            naver.maps.Event.trigger(map, 'resize');\r\n                            const markerPosition = marker.getPosition();\r\n                            const mapSize = map.getSize();\r\n\r\n                            const panX = 0;\r\n                            const panY = -(mapSize.height * 0.25);\r\n\r\n                            map.setCenter(markerPosition);\r\n                            setTimeout(() => {\r\n                                map.panBy(panX, panY);\r\n                            }, 300);\r\n                        }, 300);\r\n\r\n                        // 모든 인포윈도우 닫기\r\n                        infoWindows.forEach(iw => iw.close());\r\n                        infowindow.open(map, marker);\r\n\r\n                        handleStoreUpdate(store); // 마커 클릭 시 정보 업데이트\r\n                    });\r\n\r\n                    console.log(`Marker for ${store.name} created at (${store.latitude}, ${store.longitude})`);\r\n                });\r\n\r\n                console.log(`Total markers created: ${markers.length}`);\r\n            })\r\n            .catch(error => console.log('Error loading store data:', error));\r\n\r\n        // 검색 버튼 클릭 시\r\n        searchButton.addEventListener('click', function() {\r\n            const searchQuery = searchInput.value.trim().toLowerCase();\r\n            if (searchQuery) {\r\n                const foundStore = storeData.find(store => store.name.toLowerCase().includes(searchQuery));\r\n                if (foundStore) {\r\n                    const position = new naver.maps.LatLng(foundStore.latitude, foundStore.longitude);\r\n                    map.setCenter(position);\r\n                    map.setZoom(12);\r\n\r\n                    const foundIndex = storeData.indexOf(foundStore);\r\n                    if (foundIndex !== -1) {\r\n                        markers.forEach(marker => marker.setIcon(redMarkerIcon));\r\n                        markers[foundIndex].setIcon(yellowMarkerIcon);\r\n\r\n                        infoWindows.forEach(iw => iw.close());\r\n                        infoWindows[foundIndex].open(map, markers[foundIndex]);\r\n\r\n                        handleStoreUpdate(foundStore); // 검색 후 정보 업데이트\r\n                    }\r\n                } else {\r\n                    alert('해당 가게를 찾을 수 없습니다.');\r\n                }\r\n            } else {\r\n                alert('가게 이름을 입력해주세요.');\r\n            }\r\n        });\r\n    }\r\n});\n\n//# sourceURL=webpack://dduck/./src/index.js?");
 
 /***/ })
 
@@ -69,11 +53,476 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
-/******/ 	
+var __webpack_exports__ = {};
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
+
+
+// 전역 변수
+var storeData = [];
+var regionData = [];
+var currentStore = null;
+var map;
+var markers = [];
+var infoWindows = [];
+var redMarkerIcon;
+var yellowMarkerIcon;
+// 새로운 전역 변수
+var currentSearchMode = 'store'; // 기본값은 상호 검색
+
+// DOM 요소
+var searchButton = document.getElementById('search-button');
+var searchInput = document.getElementById('store-search');
+var videoButtonsWrapper = document.querySelector('.video-buttons-wrapper');
+var videoContainer = document.getElementById('video');
+var buttons = document.querySelectorAll(".buttons-container button");
+var tabs = document.querySelectorAll(".tab-button");
+var tabContent = document.getElementById("tab-content");
+// DOM 요소 추가
+var regionSearchModeButton = document.getElementById('region-search-mode');
+var storeSearchModeButton = document.getElementById('store-search-mode');
+var currentModeDisplay = document.getElementById('current-mode');
+
+// 검색 모드 변경 함수
+function changeSearchMode(mode) {
+  currentSearchMode = mode;
+  currentModeDisplay.textContent = "\uD604\uC7AC \uAC80\uC0C9 \uBAA8\uB4DC: ".concat(mode === 'region' ? '지역 검색' : '상호 검색');
+  regionSearchModeButton.classList.toggle('active', mode === 'region');
+  storeSearchModeButton.classList.toggle('active', mode === 'store');
+}
+
+// 검색 모드 버튼 이벤트 리스너
+regionSearchModeButton.addEventListener('click', function () {
+  return changeSearchMode('region');
+});
+storeSearchModeButton.addEventListener('click', function () {
+  return changeSearchMode('store');
+});
+
+// 지역 검색 함수
+function searchByRegion(query) {
+  if (!regionData) {
+    console.log('지역 데이터가 로드되지 않았습니다.');
+    alert('지역 데이터를 로드하는 데 문제가 발생했습니다.');
+    return;
+  }
+
+  // 시도와 시군구를 분리하여 검색
+  var matchedRegions = regionData.filter(function (region) {
+    return region.시도 && region.시도.toLowerCase().includes(query.toLowerCase()) || region.시군구 && region.시군구.toLowerCase().includes(query.toLowerCase());
+  });
+
+  // 시군구가 없는 경우를 우선적으로 처리
+  var matchedRegion = matchedRegions.find(function (region) {
+    return region.시군구 === null;
+  }) || matchedRegions[0];
+  if (matchedRegion) {
+    console.log(matchedRegion); // 선택된 지역 정보 출력
+    var position = new naver.maps.LatLng(matchedRegion.위도, matchedRegion.경도);
+    map.setCenter(position);
+    map.setZoom(matchedRegion.시군구 ? 11 : 9);
+    var regionStores = storeData.filter(function (store) {
+      return store.address.includes(matchedRegion.시도) || matchedRegion.시군구 && store.address.includes(matchedRegion.시군구) || store.address.includes(query);
+    });
+    console.log(regionStores); // 필터링된 가게 정보 출력
+    updateMarkers(regionStores);
+    if (regionStores.length > 0) {
+      updateStoreInfo(regionStores[0]);
+    } else {
+      alert('해당 지역에 등록된 가게가 없습니다.');
+    }
+  } else {
+    alert('해당 지역을 찾을 수 없습니다.');
+  }
+}
+
+// 유튜브 비디오 및 버튼 업데이트 함수
+function updateVideoAndButtons(store) {
+  var videoFrame = document.getElementById('youtubeVideo');
+  buttons.forEach(function (button) {
+    var buttonId = button.id;
+    if (store.youtubeVideos && store.youtubeVideos[buttonId]) {
+      button.onclick = function () {
+        var videoId = extractVideoId(store.youtubeVideos[buttonId]);
+        if (videoId) {
+          videoFrame.src = "https://www.youtube.com/embed/".concat(videoId);
+        }
+      };
+    } else {
+      console.error("\uD574\uB2F9 \uAC00\uAC8C\uC5D0 \uB300\uD55C \uC720\uD29C\uBE0C \uC601\uC0C1 ID(".concat(buttonId, ")\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4."));
+    }
+  });
+}
+
+// 탭 활성화 함수
+function activateTab(tabId, content) {
+  tabs.forEach(function (tab) {
+    tab.classList.remove('active');
+    if (tab.id === tabId) {
+      tab.classList.add('active');
+    }
+  });
+  tabContent.innerHTML = content || '내용이 없습니다.';
+}
+
+// 탭 클릭 이벤트 설정
+function setupTabListeners() {
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var tabId = tab.id;
+      if (tabId === 'detail-tab' && currentStore) {
+        var detailContent = "\n                    \uAC00\uAC8C\uBA85: ".concat(currentStore.name, "<br>\n                    \uC8FC\uC18C: ").concat(currentStore.address, "<br>\n                    \uD3C9\uC810: ").concat(currentStore.rating, "<br>\n                    \uD569\uC0B0\uB9AC\uBDF0: ").concat(currentStore.reviews, "<br> \n                    \uBC29\uC1A1: ").concat(currentStore.broadcast, "<br>\n                    \uC804\uD654\uBC88\uD638: ").concat(currentStore.phone, "<br>\n                    \uBA54\uB274: ").concat(currentStore.menu.join(", "), "<br>\n                    \uAC00\uACA9: ").concat(currentStore.price, "\n                ");
+        activateTab('detail-tab', detailContent);
+      } else {
+        var content = tab.dataset.content || '내용이 없습니다.';
+        activateTab(tabId, content);
+      }
+    });
+  });
+}
+
+// 인스타그램 임베드 업데이트 함수
+function updateInstagramEmbed(instaEmbedCode) {
+  var instagramPostContainer = document.getElementById('instagram-post');
+  if (tabContent && instagramPostContainer) {
+    tabContent.innerHTML = '';
+    instagramPostContainer.innerHTML = '';
+    tabContent.innerHTML = instaEmbedCode;
+    if (window.instgrm) {
+      setTimeout(function () {
+        window.instgrm.Embeds.process();
+      }, 500);
+    } else {
+      var script = document.createElement('script');
+      script.async = true;
+      script.defer = true;
+      script.src = "https://www.instagram.com/embed.js";
+      document.body.appendChild(script);
+    }
+  } else {
+    console.error("tab-content 또는 instagram-post 요소를 찾을 수 없습니다.");
+  }
+}
+
+// 인스타그램 탭 핸들러
+function setupInstagramTabHandlers() {
+  document.getElementById('popular1-tab').addEventListener('click', function () {
+    if (currentStore && currentStore.popularInsta1) {
+      updateInstagramEmbed(currentStore.popularInsta1);
+    }
+  });
+  document.getElementById('popular2-tab').addEventListener('click', function () {
+    if (currentStore && currentStore.popularInsta2) {
+      updateInstagramEmbed(currentStore.popularInsta2);
+    }
+  });
+  document.getElementById('latest1-tab').addEventListener('click', function () {
+    if (currentStore && currentStore.latestInsta1) {
+      updateInstagramEmbed(currentStore.latestInsta1);
+    }
+  });
+  document.getElementById('latest2-tab').addEventListener('click', function () {
+    if (currentStore && currentStore.latestInsta2) {
+      updateInstagramEmbed(currentStore.latestInsta2);
+    }
+  });
+}
+
+// 가게 정보 업데이트 함수
+function updateStoreInfo(store) {
+  currentStore = store;
+  if (!store) return;
+  var detailContent = "\n        \uAC00\uAC8C\uBA85: ".concat(store.name, "<br>\n        \uC8FC\uC18C: ").concat(store.address, "<br>\n        \uD3C9\uC810: ").concat(store.rating, "<br>\n        \uD569\uC0B0\uB9AC\uBDF0: ").concat(store.reviews, "<br>\n        \uBC29\uC1A1: ").concat(store.broadcast, "<br>\n        \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br>\n        \uBA54\uB274: ").concat(store.menu.join(", "), "<br>\n        \uAC00\uACA9: ").concat(store.price, "\n    ");
+  activateTab('detail-tab', detailContent);
+  document.getElementById('popular1-tab').dataset.content = store.popularInsta1 || '해당 게시물을 가져올 수 없습니다.';
+  document.getElementById('popular2-tab').dataset.content = store.popularInsta2 || '해당 게시물을 가져올 수 없습니다.';
+  document.getElementById('latest1-tab').dataset.content = store.latestInsta1 || '해당 게시물을 가져올 수 없습니다.';
+  document.getElementById('latest2-tab').dataset.content = store.latestInsta2 || '해당 게시물을 가져올 수 없습니다.';
+  updateVideoAndButtons(store);
+  // 새로운 코드: 유튜브 미리보기 업데이트
+  updateYoutubePreview(store);
+}
+
+// 새로운 함수: 유튜브 미리보기 업데이트
+function updateYoutubePreview(store) {
+  var videoFrame = document.getElementById('youtubeVideo');
+  if (videoFrame && store.youtubeVideos && store.youtubeVideos.childhood) {
+    var videoId = extractVideoId(store.youtubeVideos.childhood);
+    if (videoId) {
+      videoFrame.src = "https://www.youtube.com/embed/".concat(videoId);
+    }
+  }
+}
+
+// 유틸리티 함수: YouTube URL에서 비디오 ID 추출
+function extractVideoId(url) {
+  var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  var match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+}
+
+// 상호 검색 함수 (기존의 searchStoresAndRegions 함수를 수정)
+function searchByStoreName(query) {
+  var matchedStores = storeData.filter(function (store) {
+    return store.name.toLowerCase().includes(query.toLowerCase());
+  });
+  if (matchedStores.length > 0) {
+    var store = matchedStores[0];
+    var position = new naver.maps.LatLng(store.latitude, store.longitude);
+    map.setCenter(position);
+    map.setZoom(15);
+    updateMarkers([store], true);
+    updateStoreInfo(store);
+  } else {
+    alert('검색 결과가 없습니다.');
+  }
+}
+
+// 마커 업데이트 함수
+function updateMarkers(stores) {
+  var openInfoWindow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  // 기존 마커 제거
+  markers.forEach(function (marker) {
+    return marker.setMap(null);
+  });
+  markers = [];
+  infoWindows = [];
+
+  // 새 마커 생성
+  stores.forEach(function (store, index) {
+    var position = new naver.maps.LatLng(store.latitude, store.longitude);
+    var marker = new naver.maps.Marker({
+      map: map,
+      position: position,
+      icon: index === 0 ? yellowMarkerIcon : redMarkerIcon
+    });
+    markers.push(marker);
+    var contentString = "\n            <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500;\">\n                <h3 style=\"font-size:14px; font-weight: 600;\">\n                    ".concat(store.name, "\n                </h3>\n                <p>\n                    \uC8FC\uC18C: ").concat(store.address, "<br />\n                    \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br />\n                </p>\n            </div>\n        ");
+    var infowindow = new naver.maps.InfoWindow({
+      content: contentString,
+      minWidth: 200,
+      backgroundColor: "#eee",
+      borderColor: "#b40057",
+      borderWidth: 5
+    });
+    infoWindows.push(infowindow);
+    naver.maps.Event.addListener(marker, "click", function () {
+      markers.forEach(function (m) {
+        return m.setIcon(redMarkerIcon);
+      });
+      marker.setIcon(yellowMarkerIcon);
+      infoWindows.forEach(function (iw) {
+        return iw.close();
+      });
+      infowindow.open(map, marker);
+      updateStoreInfo(store);
+    });
+    if (index === 0 && openInfoWindow) {
+      infowindow.open(map, marker);
+    }
+  });
+}
+
+// 지도 초기화 함수
+function initializeMap() {
+  var mapElement = document.getElementById('map');
+  if (!searchButton || !mapElement) {
+    console.error('Required DOM elements not found');
+    return;
+  }
+  if (window.naver && naver.maps) {
+    var cityhall = new naver.maps.LatLng(37.5666805, 126.9784147);
+    map = new naver.maps.Map('map', {
+      center: cityhall,
+      zoom: 6.5
+    });
+    redMarkerIcon = {
+      url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+      size: new naver.maps.Size(32, 32),
+      origin: new naver.maps.Point(0, 0),
+      anchor: new naver.maps.Point(16, 32)
+    };
+    yellowMarkerIcon = {
+      url: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+      size: new naver.maps.Size(32, 32),
+      origin: new naver.maps.Point(0, 0),
+      anchor: new naver.maps.Point(16, 32)
+    };
+    loadStoreData();
+    loadRegionData();
+    setupEventListeners();
+
+    // 초기 탭 활성화
+    activateTab('detail-tab', '가게를 선택하면 상세 정보가 표시됩니다.');
+    changeSearchMode('store'); // 초기 검색 모드를 '상호 검색'으로 설정
+    console.log('맛집 지도 애플리케이션이 초기화되었습니다.');
+
+    // 지도 빈 곳 클릭 시 정보창 닫기
+    naver.maps.Event.addListener(map, 'click', function () {
+      infoWindows.forEach(function (iw) {
+        return iw.close();
+      });
+    });
+
+    // 탭 클릭 이벤트 리스너 추가
+    document.querySelectorAll('.tab-button').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        // 지도의 크기를 조정
+        naver.maps.Event.trigger(map, 'resize');
+
+        // 지도의 중심을 조정하여 빈 공간을 없앰
+        var mapCenter = map.getCenter();
+        var mapSize = map.getSize();
+        var panX = 0;
+        var panY = -(mapSize.height * 0.25); // 지도의 중심을 위로 이동
+
+        map.setCenter(mapCenter);
+        setTimeout(function () {
+          map.panBy(panX, panY);
+        }, 300);
+      });
+    });
+  }
+}
+
+// 가게 데이터 로드 함수
+function loadStoreData() {
+  fetch('https://tera04162.github.io/dduck/dduck.json').then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    storeData = data;
+    createInitialMarkers();
+    setupSearchListeners();
+    setupTabListeners();
+    setupInstagramTabHandlers();
+  })["catch"](function (error) {
+    return console.log('Error loading store data:', error);
+  });
+}
+
+// 지역 데이터 로드 함수
+function loadRegionData() {
+  fetch('https://tera04162.github.io/dduck/region.json').then(function (response) {
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+    return response.json();
+  }).then(function (data) {
+    regionData = data;
+    console.log('지역 데이터 로드 완료:', regionData);
+  })["catch"](function (error) {
+    return console.log('Error loading region data:', error);
+  });
+}
+
+// 초기 마커 생성 함수
+function createInitialMarkers() {
+  storeData.forEach(function (store, index) {
+    var position = new naver.maps.LatLng(store.latitude, store.longitude);
+    var marker = new naver.maps.Marker({
+      map: map,
+      position: position,
+      icon: redMarkerIcon
+    });
+    markers.push(marker);
+    var contentString = "\n            <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500;\">\n                <h3 style=\"font-size:14px; font-weight: 600;\">\n                    ".concat(store.name, "\n                </h3>\n                <p>\n                    \uC8FC\uC18C: ").concat(store.address, "<br />\n                    \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br />\n                </p>\n            </div>\n        ");
+    var infowindow = new naver.maps.InfoWindow({
+      content: contentString,
+      minWidth: 200,
+      backgroundColor: "#eee",
+      borderColor: "#b40057",
+      borderWidth: 5
+    });
+    infoWindows.push(infowindow);
+    naver.maps.Event.addListener(marker, "click", function () {
+      markers.forEach(function (m) {
+        return m.setIcon(redMarkerIcon);
+      });
+      marker.setIcon(yellowMarkerIcon);
+      setTimeout(function () {
+        naver.maps.Event.trigger(map, 'resize');
+        var markerPosition = marker.getPosition();
+        var mapSize = map.getSize();
+        var panX = 0;
+        var panY = -(mapSize.height * 0.25);
+        map.setCenter(markerPosition);
+        setTimeout(function () {
+          map.panBy(panX, panY);
+        }, 300);
+      }, 300);
+      infoWindows.forEach(function (iw) {
+        return iw.close();
+      });
+      infowindow.open(map, marker);
+      updateStoreInfo(store);
+    });
+    console.log("Marker for ".concat(store.name, " created at (").concat(store.latitude, ", ").concat(store.longitude, ")"));
+  });
+  console.log("Total markers created: ".concat(markers.length));
+}
+
+// 검색 리스너 설정 함수
+function setupSearchListeners() {
+  searchButton.addEventListener('click', performSearch);
+  searchInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+}
+function performSearch() {
+  var searchQuery = searchInput.value.trim();
+  if (searchQuery.length >= 2) {
+    if (currentSearchMode === 'region') {
+      searchByRegion(searchQuery);
+    } else {
+      searchByStoreName(searchQuery);
+    }
+  } else {
+    alert('검색어를 2글자 이상 입력해주세요.');
+  }
+}
+
+// 이벤트 리스너 설정 함수
+function setupEventListeners() {
+  setupSearchListeners();
+  setupTabListeners();
+  setupInstagramTabHandlers();
+  window.addEventListener('resize', function () {
+    if (map) {
+      naver.maps.Event.trigger(map, 'resize');
+    }
+  });
+}
+// 검색 입력 필드 엔터 키 이벤트 수정
+searchInput.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    var searchQuery = searchInput.value.trim();
+    if (searchQuery.length >= 2) {
+      if (currentSearchMode === 'region') {
+        searchByRegion(searchQuery);
+      } else {
+        searchByStoreName(searchQuery);
+      }
+    } else {
+      alert('검색어를 2글자 이상 입력해주세요.');
+    }
+  }
+});
+
+// 윈도우 리사이즈 이벤트 처리
+window.addEventListener('resize', function () {
+  if (map) {
+    naver.maps.Event.trigger(map, 'resize');
+  }
+});
+
+// 지도 초기화
+document.addEventListener('DOMContentLoaded', initializeMap);
+console.log('맛집 지도 애플리케이션 스크립트가 로드되었습니다.');
 /******/ })()
 ;
+//# sourceMappingURL=bundle.js.map
