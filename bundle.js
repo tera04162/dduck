@@ -86,6 +86,27 @@ var regionSearchModeButton = document.getElementById('region-search-mode');
 var storeSearchModeButton = document.getElementById('store-search-mode');
 var currentModeDisplay = document.getElementById('current-mode');
 
+// DOM 요소 가져오기(지도축소및판넬확대관련)
+var textPanel = document.querySelector('.text-panel');
+var rowContainer = document.querySelector('.row-container');
+
+// 텍스트 패널 클릭 시 지도 축소 및 텍스트 패널 확장 기능
+textPanel.addEventListener('click', function () {
+  rowContainer.classList.toggle('expanded');
+  setTimeout(function () {
+    naver.maps.Event.trigger(map, 'resize');
+    var mapCenter = map.getCenter();
+    var mapSize = map.getSize();
+    var panX = 0;
+    var panY = -(mapSize.height * 0.25); // 지도의 중심을 위로 이동
+
+    map.setCenter(mapCenter);
+    setTimeout(function () {
+      map.panBy(panX, panY);
+    }, 300);
+  }, 300);
+});
+
 // 검색 모드 변경 함수
 function changeSearchMode(mode) {
   currentSearchMode = mode;
