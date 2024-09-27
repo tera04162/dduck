@@ -5,7 +5,7 @@
     --background-color: lightblue;
     --male-color: blue;
     --female-color: red;
-    --store-name-color: #000;
+    --store-name-color: #d00000;
     --font-size-base: 16px;
     --font-weight-bold: 800;
     --search-box-border-color: #d00000;
@@ -62,7 +62,7 @@ body {
     border-radius: 5px;
     border: 7px solid var(--search-box-border-color);
     background-color: white;
-    color: #000;
+    color: #d00000;
     position: relative;
 }
 
