@@ -116,9 +116,7 @@ function handleInfoWindowClick(store) {
 }
 
 // 마커 클릭 후 간략 정보창에 클릭 이벤트 추가
-markers.forEach(function (marker, index) {
-  var store = storeData[index];
-  var infowindow = infoWindows[index];
+function addInfoWindowClickListener(store, marker, infowindow) {
   naver.maps.Event.addListener(infowindow, 'domready', function () {
     var infoWindowElement = document.querySelector('.gm-style-iw'); // 간략 정보창의 DOM 요소
     if (infoWindowElement) {
@@ -127,6 +125,11 @@ markers.forEach(function (marker, index) {
       });
     }
   });
+}
+markers.forEach(function (marker, index) {
+  var store = storeData[index];
+  var infowindow = infoWindows[index];
+  addInfoWindowClickListener(store, marker, infowindow);
 });
 
 // 검색 모드 변경 함수
