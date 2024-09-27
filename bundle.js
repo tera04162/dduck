@@ -524,5 +524,5 @@ window.addEventListener('resize', function () {
 document.addEventListener('DOMContentLoaded', initializeMap);
 console.log('맛집 지도 애플리케이션 스크립트가 로드되었습니다.');
 /******/ })()
-;
+; 
 //# sourceMappingURL=bundle.js.map
