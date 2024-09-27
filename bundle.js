@@ -139,9 +139,7 @@ function searchByRegion(query) {
   }
 }
 
-// 전역 변수 선언 부분 끝
-
-// 여기에 toggleDetailView 함수를 추가합니다
+// 이 함수를 추가하세요 (updateVideoAndButtons 함수 바로 위에 추가)
 function toggleDetailView() {
   var mapArea = document.getElementById('map');
   var textPanel = document.getElementById('text-panel');
@@ -164,12 +162,12 @@ function toggleDetailView() {
   } else {
     if (window.innerWidth > 768) {
       // PC 버전
-      mapArea.style.width = '100%';
-      textPanel.style.width = '100%';
+      mapArea.style.width = '';
+      textPanel.style.width = '';
     } else {
       // 모바일 버전
-      mapArea.style.height = 'auto';
-      textPanel.style.height = 'auto';
+      mapArea.style.height = '';
+      textPanel.style.height = '';
     }
   }
   setTimeout(function () {
@@ -178,8 +176,6 @@ function toggleDetailView() {
     map.setCenter(center);
   }, 100);
 }
-
-// updateVideoAndButtons 함수와 그 이후의 기존 함수들
 
 // 유튜브 비디오 및 버튼 업데이트 함수
 function updateVideoAndButtons(store) {
@@ -363,7 +359,7 @@ function updateMarkers(stores) {
       updateStoreInfo(store);
     });
 
-    // 여기에 infowindow 클릭 이벤트를 추가합니다
+    // 그리고 바로 아래에 이 코드를 추가하세요
     naver.maps.Event.addListener(infowindow, "domready", function () {
       var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
       if (iwInner) {
@@ -489,15 +485,6 @@ function createInitialMarkers() {
       borderColor: "#b40057",
       borderWidth: 5
     });
-    naver.maps.Event.addListener(infowindow, "domready", function () {
-      var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
-      if (iwInner) {
-        iwInner.addEventListener('click', function () {
-          toggleDetailView();
-          updateStoreInfo(store);
-        });
-      }
-    });
     infoWindows.push(infowindow);
     naver.maps.Event.addListener(marker, "click", function () {
       markers.forEach(function (m) {
@@ -520,6 +507,17 @@ function createInitialMarkers() {
       });
       infowindow.open(map, marker);
       updateStoreInfo(store);
+    });
+
+    // 그리고 바로 아래에 이 코드를 추가하세요
+    naver.maps.Event.addListener(infowindow, "domready", function () {
+      var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
+      if (iwInner) {
+        iwInner.addEventListener('click', function () {
+          toggleDetailView();
+          updateStoreInfo(store);
+        });
+      }
     });
     console.log("Marker for ".concat(store.name, " created at (").concat(store.latitude, ", ").concat(store.longitude, ")"));
   });
