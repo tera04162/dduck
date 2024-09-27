@@ -283,4 +283,44 @@ body {
     color: var(--search-box-border-color);
 }
 
+.row-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.map-area, .text-panel {
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+@media (min-width: 769px) {
+    .row-container {
+        flex-direction: row;
+    }
+
+    .row-container.expanded .map-area {
+        width: 66.67%;
+    }
+
+    .row-container.expanded .text-panel {
+        width: 33.33%;
+    }
+}
+
+@media (max-width: 768px) {
+    .row-container.expanded .map-area {
+        height: 50%;
+    }
+
+    .row-container.expanded .text-panel {
+        height: 50%;
+    }
+}
+
+.iw_inner {
+    cursor: pointer;
+}
+
 /*# sourceMappingURL=styles.css.map*/
