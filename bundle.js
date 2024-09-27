@@ -86,55 +86,6 @@ var regionSearchModeButton = document.getElementById('region-search-mode');
 var storeSearchModeButton = document.getElementById('store-search-mode');
 var currentModeDisplay = document.getElementById('current-mode');
 
-// DOM 요소 지도축소를 위해 추가
-var rowContainer = document.querySelector('.row-container'); // 전체 레이아웃
-var mapContainer = document.querySelector('.map-area'); // 지도 영역
-var textPanel = document.querySelector('.text-panel'); // 텍스트 패널
-
-// 간략 정보창 클릭 시 창 크기 변경
-function handleInfoWindowClick(store) {
-  var isMobile = window.innerWidth <= 768; // 모바일 화면 여부 확인
-
-  if (!isMobile) {
-    // PC일 경우, 지도 크기 조정 (오른쪽 패널 확장)
-    rowContainer.classList.add('expanded');
-  } else {
-    // 모바일일 경우, 지도 위로 축소 및 텍스트 창 밑에서 등장
-    mapContainer.classList.add('mobile-expanded');
-    textPanel.classList.add('mobile-expanded');
-  }
-
-  // 상세 정보 업데이트
-  updateStoreInfo(store);
-
-  // 지도 리사이즈 및 위치 재조정
-  setTimeout(function () {
-    naver.maps.Event.trigger(map, 'resize');
-    var mapCenter = map.getCenter();
-    map.setCenter(mapCenter);
-  }, 300);
-}
-
-// 마커 클릭 후 간략 정보창에 클릭 이벤트 추가
-function addInfoWindowClickListener(store, infowindow) {
-  // 인포윈도우가 열렸을 때 클릭 이벤트 추가
-  naver.maps.Event.addListener(infowindow, 'open', function () {
-    var contentElement = infowindow.getElement(); // 인포윈도우 내용 DOM 가져오기
-    if (contentElement) {
-      contentElement.addEventListener('click', function () {
-        return handleInfoWindowClick(store);
-      });
-    }
-  });
-}
-
-// 마커들에 대해 이벤트 추가
-markers.forEach(function (marker, index) {
-  var store = storeData[index];
-  var infowindow = infoWindows[index];
-  addInfoWindowClickListener(store, infowindow);
-});
-
 // 검색 모드 변경 함수
 function changeSearchMode(mode) {
   currentSearchMode = mode;
