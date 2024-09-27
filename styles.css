@@ -283,4 +283,13 @@ body {
     color: var(--search-box-border-color);
 }
 
+.expanded .text-panel {
+    flex-basis: 66.67% !important; /* 텍스트 패널이 2/3로 확장 */
+}
+
+.expanded .map-area {
+    width: 33.33% !important; /* 지도 영역이 1/3로 축소 */
+}
+
+
 /*# sourceMappingURL=styles.css.map*/
