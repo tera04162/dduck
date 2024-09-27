@@ -283,28 +283,4 @@ body {
     color: var(--search-box-border-color);
 }
 
-/* PC일 때 지도 축소 및 텍스트 패널 확장 */
-.expanded .map-area {
-    width: 33.33%; /* 지도를 1/3로 축소 */
-    transition: width 0.5s ease;
-}
-
-.expanded .text-panel {
-    flex-basis: 66.67%; /* 텍스트 패널을 2/3로 확장 */
-    transition: flex-basis 0.5s ease;
-}
-
-/* 모바일일 때 지도 위로 축소 및 텍스트 패널 확장 */
-.mobile-expanded .map-area {
-    height: 150px; /* 지도를 위로 축소 */
-    transition: height 0.5s ease;
-}
-
-.mobile-expanded .text-panel {
-    position: relative;
-    top: -150px; /* 텍스트 패널을 밑에서 위로 끌어올림 */
-    transition: top 0.5s ease;
-}
-
-
 /*# sourceMappingURL=styles.css.map*/
