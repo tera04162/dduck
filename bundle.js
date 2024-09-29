@@ -72,6 +72,12 @@ var redMarkerIcon;
 var yellowMarkerIcon;
 // 새로운 전역 변수
 var currentSearchMode = 'store'; // 기본값은 상호 검색
+// 20240931-2300-추가 시작
+var currentInfoWindow = null;
+var isStreetViewVisible = false;
+// 20240931-2300-추가 끝
+// 전역 변수 추가
+var currentStreetViewStore = null;
 
 // DOM 요소
 var searchButton = document.getElementById('search-button');
@@ -137,44 +143,6 @@ function searchByRegion(query) {
   } else {
     alert('해당 지역을 찾을 수 없습니다.');
   }
-}
-
-// 이 함수를 추가하세요 (updateVideoAndButtons 함수 바로 위에 추가)
-function toggleDetailView() {
-  var mapArea = document.getElementById('map');
-  var textPanel = document.getElementById('text-panel');
-  var rowContainer = document.querySelector('.row-container');
-  if (!mapArea || !textPanel || !rowContainer) {
-    console.error('필요한 DOM 요소를 찾을 수 없습니다.');
-    return;
-  }
-  rowContainer.classList.toggle('expanded');
-  if (rowContainer.classList.contains('expanded')) {
-    if (window.innerWidth > 768) {
-      // PC 버전
-      mapArea.style.width = '66.67%';
-      textPanel.style.width = '33.33%';
-    } else {
-      // 모바일 버전
-      mapArea.style.height = '50%';
-      textPanel.style.height = '50%';
-    }
-  } else {
-    if (window.innerWidth > 768) {
-      // PC 버전
-      mapArea.style.width = '';
-      textPanel.style.width = '';
-    } else {
-      // 모바일 버전
-      mapArea.style.height = '';
-      textPanel.style.height = '';
-    }
-  }
-  setTimeout(function () {
-    naver.maps.Event.trigger(map, 'resize');
-    var center = map.getCenter();
-    map.setCenter(center);
-  }, 100);
 }
 
 // 유튜브 비디오 및 버튼 업데이트 함수
@@ -319,6 +287,31 @@ function searchByStoreName(query) {
   }
 }
 
+// toggleStreetView 함수 수정
+function toggleStreetView(store) {
+  console.log('toggleStreetView called', store); // 디버깅용
+  var streetViewArea = document.getElementById('street-view');
+  var mapArea = document.getElementById('map');
+  if (!isStreetViewVisible && store && store.streetViewUrl) {
+    console.log('Opening street view:', store.streetViewUrl); // 디버깅용
+    streetViewArea.style.display = 'block';
+    streetViewArea.innerHTML = "<iframe src=\"".concat(store.streetViewUrl, "\" width=\"100%\" height=\"100%\" frameborder=\"0\" style=\"border:0;\" allowfullscreen=\"\" aria-hidden=\"false\" tabindex=\"0\"></iframe>");
+    mapArea.style.width = '50%';
+    isStreetViewVisible = true;
+    currentStreetViewStore = store;
+  } else {
+    console.log('Closing street view'); // 디버깅용
+    streetViewArea.style.display = 'none';
+    streetViewArea.innerHTML = '';
+    mapArea.style.width = '100%';
+    isStreetViewVisible = false;
+    currentStreetViewStore = null;
+  }
+  if (map) {
+    naver.maps.Event.trigger(map, 'resize');
+  }
+}
+
 // 마커 업데이트 함수
 function updateMarkers(stores) {
   var openInfoWindow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -338,13 +331,15 @@ function updateMarkers(stores) {
       icon: index === 0 ? yellowMarkerIcon : redMarkerIcon
     });
     markers.push(marker);
-    var contentString = "\n            <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500;\">\n                <h3 style=\"font-size:14px; font-weight: 600;\">\n                    ".concat(store.name, "\n                </h3>\n                <p>\n                    \uC8FC\uC18C: ").concat(store.address, "<br />\n                    \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br />\n                </p>\n            </div>\n        ");
+    var contentString = "\n            <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500; cursor: pointer;\">\n                <h3 style=\"font-size:14px; font-weight: 600;\">\n                    ".concat(store.name, "\n                </h3>\n                <p>\n                    \uC8FC\uC18C: ").concat(store.address, "<br />\n                    \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br />\n                </p>\n                <small>\uD074\uB9AD\uD558\uC5EC \uAC70\uB9AC\uBDF0 \uBCF4\uAE30</small>\n            </div>\n        ");
     var infowindow = new naver.maps.InfoWindow({
       content: contentString,
       minWidth: 200,
       backgroundColor: "#eee",
       borderColor: "#b40057",
-      borderWidth: 5
+      borderWidth: 5,
+      disableAnchor: true,
+      pixelOffset: new naver.maps.Point(0, -10)
     });
     infoWindows.push(infowindow);
     naver.maps.Event.addListener(marker, "click", function () {
@@ -356,16 +351,15 @@ function updateMarkers(stores) {
         return iw.close();
       });
       infowindow.open(map, marker);
+      currentInfoWindow = infowindow;
       updateStoreInfo(store);
     });
-
-    // 그리고 바로 아래에 이 코드를 추가하세요
     naver.maps.Event.addListener(infowindow, "domready", function () {
-      var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
+      var iwInner = infowindow.getContent().querySelector('.iw_inner');
       if (iwInner) {
-        iwInner.addEventListener('click', function () {
-          toggleDetailView();
-          updateStoreInfo(store);
+        iwInner.addEventListener('click', function (e) {
+          e.preventDefault();
+          toggleStreetView(store);
         });
       }
     });
@@ -411,9 +405,13 @@ function initializeMap() {
 
     // 지도 빈 곳 클릭 시 정보창 닫기
     naver.maps.Event.addListener(map, 'click', function () {
-      infoWindows.forEach(function (iw) {
-        return iw.close();
-      });
+      if (currentInfoWindow) {
+        currentInfoWindow.close();
+        currentInfoWindow = null;
+      }
+      if (isStreetViewVisible) {
+        toggleStreetView(null);
+      }
     });
 
     // 탭 클릭 이벤트 리스너 추가
@@ -438,11 +436,16 @@ function initializeMap() {
 }
 
 // 가게 데이터 로드 함수
+// loadStoreData 함수에 디버깅 로그 추가
 function loadStoreData() {
   fetch('https://tera04162.github.io/dduck/dduck.json').then(function (response) {
     return response.json();
   }).then(function (data) {
     storeData = data;
+    console.log('Loaded store data:', storeData); // 디버깅용
+    if (!storeData.streetViewUrl) {
+      console.error('streetViewUrl is missing in store data');
+    }
     createInitialMarkers();
     setupSearchListeners();
     setupTabListeners();
@@ -477,13 +480,15 @@ function createInitialMarkers() {
       icon: redMarkerIcon
     });
     markers.push(marker);
-    var contentString = "\n            <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500;\">\n                <h3 style=\"font-size:14px; font-weight: 600;\">\n                    ".concat(store.name, "\n                </h3>\n                <p>\n                    \uC8FC\uC18C: ").concat(store.address, "<br />\n                    \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br />\n                </p>\n            </div>\n        ");
+    var contentString = "\n            <div class=\"iw_inner\" style=\"font-size:13px; font-weight: 500;\">\n                <h3 style=\"font-size:14px; font-weight: 600;\">\n                    ".concat(store.name, "\n                </h3>\n                <p>\n                    \uC8FC\uC18C: ").concat(store.address, "<br />\n                    \uC804\uD654\uBC88\uD638: ").concat(store.phone, "<br />\n                </p>\n                <small>\uD074\uB9AD\uD558\uC5EC \uAC70\uB9AC\uBDF0 \uBCF4\uAE30</small>\n            </div>\n        ");
     var infowindow = new naver.maps.InfoWindow({
       content: contentString,
       minWidth: 200,
       backgroundColor: "#eee",
       borderColor: "#b40057",
-      borderWidth: 5
+      borderWidth: 5,
+      disableAnchor: true,
+      pixelOffset: new naver.maps.Point(0, -10)
     });
     infoWindows.push(infowindow);
     naver.maps.Event.addListener(marker, "click", function () {
@@ -491,31 +496,19 @@ function createInitialMarkers() {
         return m.setIcon(redMarkerIcon);
       });
       marker.setIcon(yellowMarkerIcon);
-      setTimeout(function () {
-        naver.maps.Event.trigger(map, 'resize');
-        var markerPosition = marker.getPosition();
-        var mapSize = map.getSize();
-        var panX = 0;
-        var panY = -(mapSize.height * 0.25);
-        map.setCenter(markerPosition);
-        setTimeout(function () {
-          map.panBy(panX, panY);
-        }, 300);
-      }, 300);
       infoWindows.forEach(function (iw) {
         return iw.close();
       });
       infowindow.open(map, marker);
+      currentInfoWindow = infowindow;
       updateStoreInfo(store);
     });
-
-    // 그리고 바로 아래에 이 코드를 추가하세요
     naver.maps.Event.addListener(infowindow, "domready", function () {
-      var iwInner = infowindow.getContentElement().querySelector('.iw_inner');
+      var iwInner = document.querySelector('.iw_inner');
       if (iwInner) {
-        iwInner.addEventListener('click', function () {
-          toggleDetailView();
-          updateStoreInfo(store);
+        iwInner.addEventListener('click', function (e) {
+          e.preventDefault();
+          toggleStreetView(store);
         });
       }
     });

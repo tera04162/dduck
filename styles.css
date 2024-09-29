@@ -283,45 +283,73 @@ body {
     color: var(--search-box-border-color);
 }
 
-/* 파일 끝에 이 스타일을 추가하세요 */
-.row-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    transition: all 0.5s ease;
+/* 20240932-1000-추가 시작 */
+.map-area {
+    position: relative;
+    transition: width 0.3s ease;
 }
 
-.map-area, .text-panel {
-    width: 100%;
-    transition: all 0.5s ease;
-}
-
-@media (min-width: 769px) {
-    .row-container {
-        flex-direction: row;
-    }
-
-    .row-container.expanded .map-area {
-        width: 66.67%;
-    }
-
-    .row-container.expanded .text-panel {
-        width: 33.33%;
-    }
-}
-
-@media (max-width: 768px) {
-    .row-container.expanded .map-area {
-        height: 50%;
-    }
-
-    .row-container.expanded .text-panel {
-        height: 50%;
-    }
+.street-view-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    border-left: 7px solid #d00000;
+    display: none;
+    z-index: 10;
 }
 
 .iw_inner {
     cursor: pointer;
+}
+
+.iw_inner:hover {
+    background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+    .street-view-area {
+        position: relative;
+        width: 100%;
+        height: 300px;
+        border-left: none;
+        border-top: 7px solid #d00000;
+    }
+}
+/* 20240932-1000-추가 끝 */
+
+/* 20240932-1555-추가 */
+.map-area {
+    position: relative;
+    width: 100%;
+    height: 500px; /* 또는 원하는 높이 */
+    transition: width 0.3s ease;
+}
+
+#street-view {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    display: none;
+    z-index: 10;
+    border-left: 7px solid #d00000;
+}
+
+@media (max-width: 768px) {
+    .map-area {
+        height: 300px; /* 모바일에서의 높이 조정 */
+    }
+
+    #street-view {
+        width: 100%;
+        height: 300px;
+        position: relative;
+        border-left: none;
+        border-top: 7px solid #d00000;
+    }
 }
 
 /*# sourceMappingURL=styles.css.map*/
