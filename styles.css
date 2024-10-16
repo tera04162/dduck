@@ -15,7 +15,12 @@
 }
 
 * {
-    box-sizing: border-box; /* 박스 크기가 컨테이너를 넘지 않도록 */
+    box-sizing: border-box;
+}
+
+html, body {
+  margin: 0px;
+  overflow-x: hidden;
 }
 
 body {
@@ -24,47 +29,274 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* 좌우로 넘치는 내용 숨김 */
+    overflow-x: hidden;
 }
 
 .container {
     width: 100%;
-    max-width: 1600px;
+    max-width: auto;
     margin: 0 auto;
-    padding: 10px;
+
+    padding: 5px;
 }
 
+
 .map-section {
-    display: block;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝으로 자식 요소들을 배치 */
+    align-items: center; /* 수직 중앙에 맞춤 */
+    width: 100%; /* 부모 요소의 너비 전체를 사용 */
+    margin: 0; /* 여백 제거 */
+    padding: 0; /* 내부 여백 제거 */
+    box-sizing: border-box; /* 테두리와 패딩을 너비 계산에 포함 */
+    flex-wrap: nowrap; /* 모든 자식 요소가 한 줄에 있도록 설정 */
 }
+
+.map-section > div {
+    flex-grow: 1; /* 여유 공간을 채우도록 설정 */
+    max-width: 100%; /* 자식 요소들이 부모의 최대 너비를 넘지 않도록 설정 */
+}
+
+
+#map-container {
+    display: flex; /* 지도와 거리뷰를 나란히 배치 */
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border: 7px solid #d00000;
+    transition: width 0.5s ease;
+}
+
+
 
 .search-container {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    margin-bottom: 10px;
-    flex-wrap: nowrap;
+    margin: 0 ;
+    box-sizing: border-box;
+    padding: 0px;
+
 }
+
+#search-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+ text-align: center; /* 텍스트를 가운데 정렬 */
+    border: 7px solid var(--search-box-border-color);
+    border-radius: 50px;
+margin-top: 5px;
+    height: 60px;
+    box-sizing: border-box;
+    outline: none;
+
+}
+
+#region-search-btn,
+#store-search-btn {
+display: flex;
+    padding: 0px 2px;
+    font-size: 16px;
+    color: white;
+    background-color: var(--search-box-border-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+margin-top: 5px;
+    height: 60px;
+    box-sizing: border-box;
+        white-space: pre-wrap; /* 공백과 줄바꿈을 유지 */
+        display: inline-block; /* 인라인 블록으로 설정 */
+        word-break: keep-all; /* 단어 중간에서 줄바꿈 방지 */
+}
+
+
+
+/* 추가로 hover 효과도 변경 */
+.search-btn:hover {
+    background-color: #b00000; /* 버튼에 마우스를 올렸을 때 색상 변경 */
+}
+
+
+
+#region-search-btn {
+    margin-left: 5px; /* 지역 검색과 상호 검색 사이의 간격 좁힘 */
+}
+
+/* 검색 버튼 오른쪽으로 정렬 */
+#store-search-btn {
+    margin-left: 5px; /* 오른쪽으로 간격 설정 */
+}
+
 
 #store-search {
     text-align: left;
     font-size: var(--font-size-base);
     font-weight: bold;
-    padding: 12px;
+    padding: 0px;
     width: 100%;
     flex-grow: 1;
-    margin-right: 5px;
+    margin-right: 0px;
     border-radius: 5px;
     border: 7px solid var(--search-box-border-color);
     background-color: white;
     color: #000;
     position: relative;
 }
+
+.search-mode-container {
+    border: none !important; /* 테두리 제거 */
+    box-shadow: none !important; /* 그림자 제거 */
+    margin: 0 !important; /* 여백 제거 */
+    padding: 0 !important; /* 내부 여백 제거 */
+  justify-content: space-between;
+   
+
+}
+
+
+.search-mode-container {
+    display: flex;
+    justify-content: space-between; /* 요소 간의 간격을 균일하게 유지 */
+    align-items: center;
+    margin-bottom: 5px;
+    width: calc(100% - 14px); /* 전체 너비에서 테두리 2개 7px씩 뺌 */
+   
+    margin-left:0px; /* 지도 왼쪽 테두리와 맞추기 위해 설정 */
+    padding: 0px; /* 내부 여백 추가 */
+  
+    
+}
+
+/* 모바일 버전 스타일 */
+@media (max-width: 768px) {
+    .search-mode-container {
+        flex-wrap: nowrap;
+   display: flex;
+    }
+
+    #search-input {
+        width: 100%;
+flex: 7;
+    font-size: 4vw;   /* 모바일에서는 뷰포트 너비의 4%로 설정 */
+ text-align: center; /* 텍스트를 가운데 정렬 */
+      
+    }
+
+ #region-search-btn,
+    #store-search-btn {
+        flex: 1.5;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        white-space: pre-wrap; /* 공백과 줄바꿈을 유지 */
+        display: inline-block; /* 인라인 블록으로 설정 */
+        word-break: keep-all; /* 단어 중간에서 줄바꿈 방지 */
+        white-space: normal;
+        height: 60px;
+margin-top: 5px;
+    }
+}
+
+/* 모바일 버전 스타일 */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+     
+    }
+
+.search-mode-container {
+        flex-wrap: nowrap;
+   display: flex;
+    }
+
+    #search-input {
+        width: 100%;
+    font-size: 4vw;   /* 모바일에서는 뷰포트 너비의 3%로 설정 */
+ text-align: center; /* 텍스트를 가운데 정렬 */
+flex: 7;
+   
+    }
+
+    #region-search-btn,
+    #store-search-btn {
+     width: 100%;
+      height: 60px;
+flex: 1.5;
+  
+        white-space: pre-wrap; /* 공백과 줄바꿈을 유지 */
+        display: inline-block; /* 인라인 블록으로 설정 */
+        word-break: keep-all; /* 단어 중간에서 줄바꿈 방지 */
+        padding: 0px; /* 버튼 내부 여백 조정 */
+  
+    }
+}
+
+
+/* PC 버전 스타일 */
+@media (min-width: 769px) {
+    .search-container {
+        justify-content: space-between;
+    }
+    
+    #search-input {
+   width: calc(80% - 20px);
+    }
+
+    #region-search-btn,
+    #store-search-btn {
+      width: calc(10% - 10px);
+ 
+    }
+}
+
+
+
+/* 모바일 및 PC에서 검색 버튼 위치 조정 */
+@media (max-width: 480px) {
+    .search-container {
+        flex-direction: column;
+    }
+
+.search-mode-container {
+        flex-wrap: nowrap;
+   display: flex;
+    }
+
+    #search-input {
+        width: 100%;
+    font-size: 4vw;   /* 모바일에서는 뷰포트 너비의 3%로 설정 */
+ text-align: center; /* 텍스트를 가운데 정렬 */
+flex: 7;
+    }
+
+    #region-search-btn,
+    #store-search-btn {
+margin-top: 5px;
+        width: 100%;
+flex: 1.5;
+        white-space: pre-wrap; /* 공백과 줄바꿈을 유지 */
+        display: inline-block; /* 인라인 블록으로 설정 */
+        word-break: keep-all; /* 단어 중간에서 줄바꿈 방지 */
+  font-size: 14px; /* 버튼 글자 크기 더 줄임 */
+  height: 60px; /* 버튼의 높이를 자동으로 설정해서 텍스트가 두 줄일 때도 잘 나오도록 함 */
+    }
+}
+
+
+
+    
+
 
 #search-button {
     font-size: 20px;
@@ -86,30 +318,52 @@ body {
 }
 
 .map-area {
-    min-width: 300px;
+    position: relative;
+   margin-top: 5px;
     width: 100%;
-    height: auto;
-    min-height: 500px;
+    height: 700px;
     border: 7px solid #d00000;
     transition: width 0.5s ease;
 }
 
+/* 지도와 거리뷰의 높이 및 너비 조정 */
+#street-view {
+    width: 50%;
+    height: 700px; /* 지도와 동일한 높이로 설정 */
+    display: none;
+    z-index: 10;
+    border-left: 7px solid #d00000;
+    border: 7px solid #d00000; /* 거리뷰 주변 테두리 추가 */
+margin-top: 5px;
+}
+
+/* 2024-10-06-08:15 - 지도와 거리뷰의 너비를 1:1로 수정 */
+#map-container {
+    width: 50%;
+}
+
+#street-view {
+    width: 50%;
+}
+
 .text-panel {
-    height: auto;
+    height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
+    justify-content: flex-start;
+    padding: 5px;
     background-color: var(--panel-background-color);
     border: 7px solid #d00000;
     margin-left: 0;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
+  margin-top: 5px;
+    /* width 속성 제거 */
+  transition: border-color 0.2s ease;
 }
-
 .text-panel button {
     width: 90%;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     padding: 5px;
 }
 
@@ -117,7 +371,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    gap: 10px;
+    gap: 5px;
     box-sizing: border-box;
 }
 
@@ -125,7 +379,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 10%;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .button-grid button {
@@ -136,12 +390,12 @@ body {
 .video-container {
     width: 100%;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .youtube {
     width: 100%;
-    height: 700px; /* 기본적으로 PC에서의 유튜브 높이 */
+    height: 700px;
 }
 
 .buttons-container {
@@ -151,7 +405,7 @@ body {
     width: 100%;
     height: auto;
     margin-bottom: 5px;
-    gap: 10px;
+    gap: 5px;
 }
 
 .buttons-container button {
@@ -173,36 +427,10 @@ body {
 .video-buttons-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 5px;
+    margin-top: 0px;
     width: 100%;
     border: 7px solid #d00000;
-}
-
-@media (max-width: 768px) {
-    .row-container {
-        flex-direction: column;
-    }
-
-    .map-area, .text-panel {
-        width: 100%;
-        height: auto;
-    }
-
-    .youtube {
-        height: 300px; /* 모바일에서 유튜브 높이를 300px으로 조정 */
-    }
-
-    .text-panel {
-        margin-bottom: 0px;
-    }
-}
-
-@media (max-width: 480px) {
-    .buttons-container button {
-        font-size: 14px;
-        padding: 5px;
-    }
 }
 
 .tab-container {
@@ -211,14 +439,18 @@ body {
     align-items: flex-start;
     gap: 5px;
     padding: 0;
-    margin: 0;
+    margin: 0 0 5px 0;
+    flex-shrink: 0;
+    max-width: 100%; /* 부모 요소의 최대 너비를 제한 */
+    box-sizing: border-box; /* 패딩 및 테두리를 포함한 크기 계산 */
+    overflow-x: auto; /* 자식 요소가 부모를 넘어가는 경우 스크롤 */
+ overflow-y: hidden; /* 세로 스크롤 방지 */
 }
 
 .tab-button {
-    padding: 0;
+    padding: 10px;
     font-size: 16px;
     line-height: 1.5;
-    height: 40px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -226,68 +458,303 @@ body {
     display: inline-block;
     white-space: nowrap;
     text-align: center;
+    transition: border-color 0.2s ease;
 }
 
 .tab-button.active {
     background-color: #d00000;
     color: white;
+   border: 1px solid #d00000;
 }
 
 .tab-content {
+    flex-grow: 1;
+    overflow-y: auto;
     padding: 10px;
     text-align: left;
     line-height: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
-    height: 100%;
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
+    box-sizing: border-box; /* 패딩 및 테두리를 포함한 크기 계산 */
+    min-width: 360px; /* 모바일에서도 인스타그램 콘텐츠를 표시하기 위한 최소 너비 */
+   max-height: 600px; /* 최대 높이 설정 */
+}
+
+
+#instagram-post {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #instagram-post iframe {
-    width: 100%;
-    height: 500px;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important; /* 높이를 자동으로 조정 */
+    min-height: 500px; /* 최소 높이 설정 */
 }
 
-/* 기존 CSS 내용 유지 */
-
-.search-mode-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
+/* Instagram 임베드 스타일 오버라이드 */
+.instagram-media,
+.instagram-media-rendered {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: auto !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
 }
 
-.search-mode-container button {
-    padding: 10px 20px;
-    margin: 0 5px;
-    font-size: 16px;
-    cursor: pointer;
-    border: 2px solid var(--search-box-border-color);
-    background-color: white;
-    color: var(--search-box-border-color);
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
 
-.search-mode-container button.active {
-    background-color: var(--search-box-border-color);
-    color: white;
-}
+
 
 #current-mode {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-weight: bold;
     color: var(--search-box-border-color);
 }
 
-/* 20240932-1000-추가 시작 */
-.map-area {
-    position: relative;
-    transition: width 0.3s ease;
+.iw_inner {
+    padding: 5px;
+    font-family: Arial, sans-serif;
 }
+
+.iw_inner h3 {
+    text-align: left;
+    position: relative;
+    display: inline-block;
+    font-size: 15px;
+    color: #2db400; /* 가게 이름 색상 */
+    padding-left: 15px;
+    padding-right: 10px; /* 밑줄을 오른쪽으로 연장 */
+    border-bottom: 3px solid var(--panel-border-color); /* 밑줄 */
+    margin-top: 5px; /* 상단 간격을 현재의 절반으로 줄임 */
+    margin-bottom: 5px; /* 하단 간격을 현재의 절반으로 줄임 */
+}
+
+.iw_inner h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 6px;  /* 세로줄 두께 */
+    background-color: var(--panel-border-color);  /* 세로줄 색상 */
+}
+
+
+.phone-link {
+    color: blue;
+    text-decoration: underline;
+    text-decoration-thickness: 2px; /* 밑줄 두께 설정 */
+}
+
+
+.iw_inner p {
+    text-align: left;
+    padding: 0px;
+    font-size: 13px; /* 주소 및 전화번호 글자 크기 */
+    max-width: 220px; /* 간략 텍스트창 가로 제한 */
+
+    margin: 0; /* 기본 간격을 제거 */
+}
+
+.iw_inner p strong {
+    font-weight: bold; /* '주소'와 '전화번호'만 굵게 */
+}
+
+.iw_inner p + p {
+    margin-top: 3px; /* 주소와 전화번호 사이의 간격 추가 */
+}
+
+.street-view-button {
+    background-color: #2db400;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 5px; /* 전화번호와 버튼 사이 간격 */
+}
+
+
+
+.street-view-button:hover {
+    background-color: #259b00;
+}
+
+
+.detail-button, .explore-button, .review-button, .street-view-button {
+    background-color: #2db400;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.detail-button:hover, .explore-button:hover, .review-button:hover, .street-view-button:hover {
+    background-color: #259b00;
+}
+
+@media (max-width: 768px) {
+    #map-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .map-area {
+        width: 100% !important;
+        height: 400px; /* 지도 높이 50% 줄임 */
+        transition: height 0.5s ease;
+    }
+
+    #street-view {
+        width: 100% !important;
+        height: 250px; /* 거리뷰 높이를 250px로 줄임 */
+        display: none;
+        border: 7px solid #d00000; /* 모든 면에 테두리 적용 */
+        margin-top: 5px; /* 지도와의 간격 */
+    }
+.tab-container {    
+
+overflow-x: auto; /* 자식 요소가 부모를 넘어가는 경우 스크롤 */
+
+}
+
+.tab-content {
+
+max-height:400px;/* 모바일에서 최대 높이 조정 */
+}
+
+    #street-view,
+    .text-panel,
+    .video-buttons-wrapper {
+        width: calc(100% - 2px) !important; /* 7px 테두리를 양쪽에 고려 */
+        margin-left: 1px;
+        margin-right: 1px;
+        box-sizing: border-box;
+border: 7px solid #d00000;
+    }
+
+    .row-container {
+        flex-direction: column;
+    }
+
+    .video-buttons-wrapper {
+        margin-top: 5px;
+    }
+
+    .text-panel {
+        width: 100%;
+        height: auto; /* 높이를 자동으로 조정 */
+        margin-top: 5px;
+        max-height: none; /* 최대 높이 해제 */
+        overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+    }
+
+    /* 유튜브 영상 크기 조정 */
+    .youtube {
+        height: 300px;
+    }
+
+ /* 새로 추가: 모바일에서 요소들의 기본 숨김 처리 */
+    .mobile-hide {
+        display: none;
+    }
+
+    /* 인스타그램 포스트 영역 조정 */
+    .tab-content,
+    #instagram-post {
+       width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: hidden; /* 가로 스크롤 방지 */
+    }
+
+    #instagram-post iframe {
+        width: 100% !important; /* 강제로 100% 너비 설정 */
+        max-width: 100% !important; /* 최대 너비를 100%로 제한 */
+    }
+
+     #instagram-post,
+    .instagram-media,
+    .instagram-media-rendered {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+
+}
+
+/* Instagram 임베드 스타일 오버라이드 */
+.instagram-media {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: auto !important;
+}
+
+
+/* 기존 PC 스타일 유지 */
+@media (min-width: 769px) {
+    #map-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .map-area {
+        width: 100%;
+        transition: width 0.5s ease;
+    }
+.tab-container {    overflow-x: auto; /* 자식 요소가 부모를 넘어가는 경우 스크롤 */}
+    #street-view {
+        width: 50%;
+        display: none;
+        border-left: 7px solid #d00000;
+    }
+}
+
+@media (max-width: 480px) {
+    .buttons-container button {
+        font-size: 12px;
+        padding: 3px;
+    }
+
+    .tab-button {
+        padding: 2px;
+        font-size: 14px;
+
+    }
+.tab-container { 
+
+   overflow-x: auto; /* 자식 요소가 부모를 넘어가는 경우 스크롤 */}
+overflow-y: hidden; /* 세로 스크롤 방지 */
+
+overflow-y: auto;
+    .tab-content {
+        width: 100%;
+        min-width: 320px; /* 모바일에서 최소 너비 조정 */
+        box-sizing: border-box;
+        padding: 5px; /* 모바일에서 여백을 줄여서 콘텐츠를 조정 */
+overflow-x: auto;
+overflow-y: auto;
+    }
+}
+
+/* 추가: 탭 컨테이너 스타일 */
+.tab-container {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}  
+
+
 
 .street-view-area {
     position: absolute;
@@ -295,61 +762,39 @@ body {
     right: 0;
     width: 50%;
     height: 100%;
-    border-left: 7px solid #d00000;
-    display: none;
-    z-index: 10;
-}
-
-.iw_inner {
-    cursor: pointer;
-}
-
-.iw_inner:hover {
-    background-color: #f0f0f0;
-}
-
-@media (max-width: 768px) {
-    .street-view-area {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        border-left: none;
-        border-top: 7px solid #d00000;
-    }
-}
-/* 20240932-1000-추가 끝 */
-
-/* 20240932-1555-추가 */
-.map-area {
-    position: relative;
-    width: 100%;
-    height: 500px; /* 또는 원하는 높이 */
-    transition: width 0.3s ease;
-}
-
-#street-view {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
     display: none;
     z-index: 10;
     border-left: 7px solid #d00000;
 }
 
-@media (max-width: 768px) {
-    .map-area {
-        height: 300px; /* 모바일에서의 높이 조정 */
-    }
+.store-info {
+    text-align: left;
+    padding: 10px;
+}
 
-    #street-view {
-        width: 100%;
-        height: 300px;
-        position: relative;
-        border-left: none;
-        border-top: 7px solid #d00000;
-    }
+.store-info h2 {
+    margin-top: 0;
+    color: #d00000;
+}
+
+.store-info p {
+    margin: 5px 0;
+}
+
+/* 스크롤바 스타일링 */
+.tab-content::-webkit-scrollbar {
+    width: 10px;
+    height: 10px; /* 가로 스크롤바 높이 조정 */
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+    background-color: #d00000;
+    border-radius: 3px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 3px;
 }
 
 /*# sourceMappingURL=styles.css.map*/
